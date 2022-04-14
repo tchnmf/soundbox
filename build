@@ -1,0 +1,5 @@
+#!/bin/bash
+
+podman rm -f soundbox
+podman build . -t soundbox
+podman run -dt --name soundbox  --security-opt label=disable localhost/soundbox

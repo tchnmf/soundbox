@@ -1,0 +1,22 @@
+#!/bin/bash
+
+yum_packages=$(cat /opt/yum-packages.txt)
+pip_packages=$(cat /opt/pip-packages.txt)
+
+yum check-update
+yum update -y
+yum install -y $yum_packages
+
+pip install pip --upgrade
+pip install $pip_packages
+
+
+function package_info() {
+  echo -e "# Yum Packages \n=============="
+  yum info installed $yum_packages
+  echo -e "\n# Pip Packages \n=============="
+  pip show $pip_packages
+}
+
+
+package_info | tee /opt/package-info.txt
